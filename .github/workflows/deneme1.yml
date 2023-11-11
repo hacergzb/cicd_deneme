@@ -1,1 +1,27 @@
-name: ilk workflow
+name: Basit CI #Workflowun adı
+
+on: # Tetiklenecek türü içine giriyoruz
+  push: # push ile tetiklenecek
+    branches:
+      - main # ana proje tetiklenirse çalışacak
+
+jobs: # Çalışacak işerin ana kısmı
+  build: # çalışacak işimiz adı
+    runs-on: ubuntu-latest # ubuntu-latest adındaki githubun verdiği sanal makinenin içinde çalışacak
+
+    steps: # Job içinde uygulanacak adımların yazıldığı nokta
+    - name: Repo'yu Checkout Et  # Step in adını yazıyoruz
+      uses: actions/checkout@v2 # hazır actionlar sayesinde ekstra zaman harcamadan işlemlerimiz yaparız
+
+    - name: Node.js yükle
+      uses: actions/setup-node@v3
+      with: # actions un detay ayarlarını yazmak için kullanırız
+        node-version: '14'
+
+    - name: Bağımlılıkları Yükle
+      run: npm install # Çalıştırmak istediğim linux, git, docker veya programlama dili komutlarını run da yazarım
+
+    - name: Çoklu run 
+      run: | # Çoklu komut çalıştırılacaksa | bu işaret kullanılır
+        ls -a > deneme.txt
+        cat deneme.txt
